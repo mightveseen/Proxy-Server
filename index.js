@@ -5,19 +5,23 @@ import express from 'express';
 dotenv.config();
 
 const app = express();
-const now = new Date();
-const date = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
-const apiUrl = `${process.env.API_URL}?start_date=${date}&end_date=${date}&api_key=${process.env.API_KEY}`;
 
-function getApiData() {
-    axios.get(apiUrl)
-        .then(response => {
-            console.log(JSON.stringify(response.data, 0, 1));
-        }).catch(error => {
-            console.error(`Error occurred during API call [${error}]`);
-        })
+async function getApiData(startDate, endDate) {
+    const apiUrl = `${process.env.API_URL}?start_date=${startDate}&end_date=${endDate}&api_key=${process.env.API_KEY}`;
+    return axios.get(apiUrl);
 }
 
-app.listen(4000, () => {
-    console.log(`Server is running on port ${4000}...`);
+app.get('/api/meteors', async (req, res) => {
+    try {
+        const { startDate, endDate } = req.query;
+        res.status(200).json((await getApiData(startDate, endDate)).data);
+    } catch (error) {
+        const message = `Error occured during API call [${error}]`;
+        console.error(message)
+        res.status(400).json({message})
+    }
+});
+
+app.listen(process.env.SERVER_PORT, () => {
+    console.log(`Server is running on port ${process.env.SERVER_PORT} ...`);
 });
