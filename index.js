@@ -5,6 +5,7 @@ import express from 'express';
 dotenv.config();
 
 const app = express();
+
 const now = new Date();
 const date = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
 const apiUrl = `${process.env.API_URL}?start_date=${date}&end_date=${date}&api_key=${process.env.API_KEY}`;
