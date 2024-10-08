@@ -1,9 +1,11 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const now = new Date();
 const date = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
-const apiKey = 'q6R7KIYkpLoWCPqebxgyFDbIxL3PQOLRESF3Xhce';
-const apiUrl = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${date}&end_date=${date}&api_key=${apiKey}`;
+const apiUrl = `${process.env.API_URL}?start_date=${date}&end_date=${date}&api_key=${process.env.API_KEY}`;
 
 function getApiData() {
     axios.get(apiUrl)
