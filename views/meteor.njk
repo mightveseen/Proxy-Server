@@ -1,0 +1,28 @@
+{% extends 'template.njk' %}
+{% block body %}
+<h1>
+    <span class="blue">&lt;</span>Meteors<span class="blue">&gt;</span> <span class="yellow">Data</span>
+</h1>
+<table class="container">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Max diameter</th>
+            <th>Min diameter</th>
+            <th>Is dangerous</th>
+            <th>Close approach date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for meteor in meteors %}
+        <tr>
+            <td>{{ meteor['name'] }}</td>
+            <td>{{ meteor['diameter']['estimated_diameter_max'] }}</td>
+            <td>{{ meteor['diameter']['estimated_diameter_min'] }}</td>
+            <td>{{ meteor['is_potentially_hazardous_asteroid'] }}</td>
+            <td>{{ meteor['close_approach_date_full'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
