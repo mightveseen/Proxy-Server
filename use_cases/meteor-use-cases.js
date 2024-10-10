@@ -1,7 +1,6 @@
 export function getMeteors(data, params) {
     const result = [];
     const meteors = flatAndFilterArray(data, params)
-    if (params.count > 0) meteors.length = params.count;
     meteors.forEach(meteor => {
         result.push({
             id: meteor['id'],
@@ -12,12 +11,15 @@ export function getMeteors(data, params) {
             relative_velocity: meteor['close_approach_data'][0]['relative_velocity']['kilometers_per_second'],
         });
     });
-    return result;
+    return {
+        count: params.count ? result.length : undefined,
+        meteors: result
+    };
 }
 
 function flatAndFilterArray(data, params) {
     const meteors = Object.values(data['near_earth_objects']).flat();
     return params.isDangerous !== undefined
-        ? meteors.filter(meteor => meteor['is_potentially_hazardous_asteroid'] === params.isDangerous)
+        ? meteors.filter(meteor => meteor['is_potentially_hazardous_asteroid'] === (params.isDangerous.toLowerCase() === 'true'))
         : meteors;
 }
