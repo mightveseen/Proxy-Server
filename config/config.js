@@ -4,6 +4,8 @@ config();
 
 export const env = {
     port: process.env.SERVER_PORT || 4000,
-    apiUrl: process.env.API_URL,
-    apiKey: process.env.API_KEY
+    nasaMeteorApi: process.env.NASA_METEOR_API,
+    nasaRoverApi: process.env.NASA_ROVER_API,
+    apiKey: process.env.API_KEY,
+    sol: process.env.SOL
 };

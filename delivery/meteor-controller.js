@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { executeApi } from '../repository/meteor-client.js';
-import { getMeteors } from '../use_cases/meteor-mapper.js';
 import { format } from 'date-fns'
+import { mapMeteorsToDtoList } from '../use_cases/meteor-mapper.js';
+import { mapImageToDto } from '../use_cases/image-mapper.js';
+import { getMeteors, getPhotos } from '../repository/nasa-api-client.js';
 import CustomException from '../class/CustomException.js';
 
 const router = Router();
@@ -9,15 +10,26 @@ const router = Router();
 router.get('/meteors', async (req, res, next) => {
     try {
         const { date = format(new Date(), 'yyyy-MM-dd'), count = 'false', wereDangerousMeteors = 'all' } = req.query;
-        const params = { 
+        const params = {
             date,
             count: count.toLowerCase() === 'true',
             isDangerous: wereDangerousMeteors === 'all' ? wereDangerousMeteors : wereDangerousMeteors.toLowerCase() === 'true'
         };
-        const response = getMeteors((await executeApi(params)).data, params);
+        const response = mapMeteorsToDtoList((await getMeteors(params)).data, params);
         res.status(200).render('meteor.njk', response);
     } catch (error) {
-        next(new CustomException(400, `Error occured during API call [${error}]`));
+        next(new CustomException(error.status, `Error occured during [${req.path}] API call [${error}]`));
+    }
+});
+
+router.post('/image', async (req, res, next) => {
+    try {
+        const { userId, username, apiKey } = req.body;
+        const params = { apiKey };
+        const response = mapImageToDto((await getPhotos(params)).data);
+        res.status(200).json({ userId: userId, username: username, photo: response })
+    } catch (error) {
+        next(new CustomException(error.status, `Error occured during [${req.path}] API call [${error}]`));
     }
 });
 
