@@ -1,4 +1,8 @@
 {% extends 'template.njk' %}
 {% block body %}
-<h1>Error [{{ message }}]</h1>
+    <h1>
+        <span class="blue">&lt;</span>
+        {{ message }}
+        <span class="blue">&gt;</span>
+    </h1>
 {% endblock %}
