@@ -7,13 +7,14 @@ const app = express();
 
 /* MIDDLEWARE */
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 /* CONTROLLER */
 app.use(meteorController);
 
 /* ERROR HANDLER */
 app.use((error, _req, res, _next) => {
-    res.status(error.code || 500).json({ message: error.message });
+    res.status(error.code || 500).render('exception.njk', { message: error.message });
 })
 
 app.listen(env.port, error => {

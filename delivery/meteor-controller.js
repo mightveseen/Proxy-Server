@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { response, Router } from 'express';
 import { format } from 'date-fns'
 import { mapMeteorsToDtoList } from '../use_cases/meteor-mapper.js';
 import { mapImageToDto } from '../use_cases/image-mapper.js';
@@ -24,12 +24,16 @@ router.get('/meteors', validator(meteorsApiSchema), async (req, res, next) => {
     }
 });
 
+router.get("/image", (_req, res) => {
+    res.render("rover-request.njk");
+})
+
 router.post('/image', validator(imageApiSchema), async (req, res, next) => {
     try {
         const { userId, username, apiKey } = req.body;
         const params = { apiKey };
         const response = mapImageToDto((await getPhotos(params)).data);
-        res.status(200).json({ userId: userId, username: username, photo: response })
+        res.status(200).render('rover.njk', { userId: userId, username: username, photo: response })
     } catch (error) {
         next(new CustomException(error.status, `Error occured during [${req.path}] API call [${error}]`));
     }
