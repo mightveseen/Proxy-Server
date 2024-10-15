@@ -3,11 +3,13 @@ import { format } from 'date-fns'
 import { mapMeteorsToDtoList } from '../use_cases/meteor-mapper.js';
 import { mapImageToDto } from '../use_cases/image-mapper.js';
 import { getMeteors, getPhotos } from '../repository/nasa-api-client.js';
+import { meteorsApiSchema, imageApiSchema } from '../validation/validation-schemas.js'
+import validator from '../validation/validation-interceptor.js'
 import CustomException from '../class/CustomException.js';
 
 const router = Router();
 
-router.get('/meteors', async (req, res, next) => {
+router.get('/meteors', validator(meteorsApiSchema), async (req, res, next) => {
     try {
         const { date = format(new Date(), 'yyyy-MM-dd'), count = 'false', wereDangerousMeteors = 'all' } = req.query;
         const params = {
@@ -22,7 +24,7 @@ router.get('/meteors', async (req, res, next) => {
     }
 });
 
-router.post('/image', async (req, res, next) => {
+router.post('/image', validator(imageApiSchema), async (req, res, next) => {
     try {
         const { userId, username, apiKey } = req.body;
         const params = { apiKey };
