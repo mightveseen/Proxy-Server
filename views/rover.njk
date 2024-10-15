@@ -1,0 +1,13 @@
+{% extends 'template.njk' %}
+{% block body %}
+    <h1>
+        <span class="blue">&lt;</span>Rover<span class="blue">&gt;</span>
+        <span class="yellow">photo</span>
+    </h1>
+    <h2>
+        User [{{ userId }}, {{ username }}]
+    </h2>
+    <div class="image-container">
+        <img src="{{ photo }}" alt="Rover image">
+    </div>
+{% endblock %}

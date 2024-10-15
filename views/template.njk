@@ -97,6 +97,47 @@
                 transition-property: all;
                 transition-timing-function: line;
             }
+            form {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+            }
+            label {
+                font-size: 1.1rem;
+                font-weight: 600;
+                margin-right: 10px;
+            }
+            input[type="text"] {
+                background-color: #2b2b3a;
+                border: 2px solid #44475a;
+                color: #f8f8f2;
+                padding: 10px;
+                font-size: 1rem;
+                border-radius: 5px;
+                width: 300px;
+            }
+            input[type="text"]:focus {
+                outline: none;
+                border-color: #6272a4;
+                box-shadow: 0 0 5px #6272a4;
+            }
+            button {
+                background-color: #50fa7b;
+                color: #282a36;
+                border: none;
+                padding: 10px 20px;
+                font-size: 1rem;
+                border-radius: 5px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            button:hover {
+                background-color: #3ed876;
+            }
+            .image-container {
+                text-align: center;
+            }
             @media(max-width: 800px) {
                 .container td:nth-child(4),
                 .container th:nth-child(4) {

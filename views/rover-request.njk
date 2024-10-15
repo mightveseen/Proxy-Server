@@ -1,0 +1,12 @@
+{% extends 'template.njk' %}
+{% block body %}
+    <form action="/image" method="POST">
+        <lable for="userId">UserID (GUID):</lable>
+        <input type="text" id="userId" name="userId" required="required"/>
+        <lable for="username">Username:</lable>
+        <input type="text" id="username" name="username" required="required"/>
+        <lable for="apiKey">API Key:</lable>
+        <input type="text" id="apiKey" name="apiKey" required="required"/>
+        <button type="submit">Call</button>
+    </form>
+{% endblock %}
