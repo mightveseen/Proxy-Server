@@ -1,4 +1,4 @@
-import { response, Router } from 'express';
+import { Router } from 'express';
 import { format } from 'date-fns'
 import { mapMeteorsToDtoList } from '../use_cases/meteor-mapper.js';
 import { mapImageToDto } from '../use_cases/image-mapper.js';

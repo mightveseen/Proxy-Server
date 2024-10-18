@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(meteorController);
 
 /* ERROR HANDLER */
-app.use((error, _req, res, _next) => {
+app.use((error, _req, res) => {
     res.status(error.code || 500).render('exception.njk', { message: error.message });
 })
 
