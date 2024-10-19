@@ -1,21 +1,21 @@
-import { env } from "../config/config.js";
+import { env } from "../config/config.ts";
 import axios from "axios";
 
-export async function getMeteors(params) {
+export async function getMeteors(date: string) {
     return axios.get(env.nasaMeteorApi, {
         params: {
-            start_date: params.date,
-            end_date: params.date,
+            start_date: date,
+            end_date: date,
             api_key: env.apiKey,
         },
     });
 }
 
-export async function getPhotos(params) {
+export async function getPhotos(apiKey: string) {
     return axios.get(env.nasaRoverApi, {
         params: {
             sol: env.sol,
-            api_key: params.apiKey,
+            api_key: apiKey,
         },
     });
 }

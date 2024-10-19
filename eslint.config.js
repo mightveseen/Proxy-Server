@@ -6,6 +6,7 @@ import pluginNode from 'eslint-plugin-node';
 import pluginImport from 'eslint-plugin-import';
 import pluginPromise from 'eslint-plugin-promise';
 import pluginSecurity from 'eslint-plugin-security';
+import tseslint from "typescript-eslint";
 
 export default [
   {
@@ -21,6 +22,7 @@ export default [
   },
   pluginJs.configs.recommended,
   pluginSecurity.configs.recommended,
+  ...tseslint.configs.recommended,
   configPrettier,
   {
     plugins: {
@@ -29,7 +31,8 @@ export default [
       promise: pluginPromise
     },
     rules: {
-      ...configAirbnb.rules
+      ...configAirbnb.rules,
+      "@typescript-eslint/no-unused-vars": "off"
     }
   }
 ];
