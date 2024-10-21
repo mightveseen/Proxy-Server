@@ -29,6 +29,6 @@ export async function mapMeteorsToDtoList(data: MeteorRequest, params: RequestPa
 function flatAndFilterArray(data: MeteorRequest, params: RequestParameter): Meteor[] {
     const meteors = Object.values(data.near_earth_objects).flat();
     return params.isDangerous !== 'all'
-        ? meteors.filter(meteor => meteor['is_potentially_hazardous_asteroid'] === params.isDangerous)
+        ? meteors.filter(meteor => meteor.is_potentially_hazardous_asteroid === params.isDangerous)
         : meteors;
 }
