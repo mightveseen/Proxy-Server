@@ -1,5 +1,5 @@
 export interface MeteorDTOResponse {
-    count: number|undefined, 
+    count?: number, 
     meteors: MeteorDTO[]
 }
 

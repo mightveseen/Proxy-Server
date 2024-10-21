@@ -1,7 +1,7 @@
 import { env } from "../config/config.ts";
 import axios from "axios";
 
-export async function getMeteors(date: string) {
+export async function executeNeoAPI(date: string) {
     return axios.get(env.nasaMeteorApi, {
         params: {
             start_date: date,
@@ -11,7 +11,7 @@ export async function getMeteors(date: string) {
     });
 }
 
-export async function getPhotos(apiKey: string) {
+export async function executeRoverAPI(apiKey: string) {
     return axios.get(env.nasaRoverApi, {
         params: {
             sol: env.sol,
